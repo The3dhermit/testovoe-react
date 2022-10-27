@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {CheckName, CheckPhone} from "./CheckInput";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function InputForm(props) {
 
@@ -9,9 +10,12 @@ export default function InputForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (CheckName(name).submitCheck && CheckName(lastName).submitCheck && CheckPhone(phone).submitCheck) {
+        if (CheckName(name).submitCheck &&
+            CheckName(lastName).submitCheck &&
+            CheckPhone(phone).submitCheck) {
 
             const data = {
+                id: uuidv4(),
                 name: name,
                 lastName: lastName,
                 phone: phone
@@ -29,24 +33,22 @@ export default function InputForm(props) {
         setPhone(e.target.value);
     }
 
-    return (
-        <form onSubmit={handleSubmit} action="">
+    return (<form onSubmit={handleSubmit} action="">
             <label>
                 <div className={"errorName"}>{CheckName(name).errorMessage}</div>
                 First Name:
-                <input onInput={handleNameInput} type="text" name="name" placeholder={"First Name"}/>
+                <input onInput={handleNameInput} type="text" name="name" placeholder={"First Name"} required/>
             </label>
             <label>
                 <div className={"errorName"}>{CheckName(lastName).errorMessage}</div>
                 Last Name:
-                <input onInput={handleLastNameInput} type="text" name="name" placeholder={"Last Name"}/>
+                <input onInput={handleLastNameInput} type="text" name="name" placeholder={"Last Name"} required/>
             </label>
             <label>
                 <div className={"errorName"}>{CheckPhone(phone).errorMessage}</div>
                 Phone :
-                <input onInput={handlePhoneInput} type="phone" name="name" placeholder={"+380"}/>
+                <input onInput={handlePhoneInput} type="phone" name="name" placeholder={"+380"} required/>
             </label>
             <button type={"submit"}>Add Contact</button>
-        </form>
-    )
+        </form>)
 }

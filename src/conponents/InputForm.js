@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {CheckName, CheckPhone} from "./CheckInput";
 import { v4 as uuidv4 } from 'uuid';
+import  './stile.css';
 
 export default function InputForm(props) {
 
@@ -46,7 +47,7 @@ export default function InputForm(props) {
             </label>
             <label>
                 <div className={"errorName"}>{CheckPhone(phone).errorMessage}</div>
-                Phone :
+                Phone:
                 <input onInput={handlePhoneInput} type="phone" name="name" placeholder={"+380"} required/>
             </label>
             <button type={"submit"}>Add Contact</button>

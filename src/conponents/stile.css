@@ -1,0 +1,29 @@
+form {
+  background: #435050;
+  color: aliceblue;
+  display: flex;
+  font-size: 24px;
+  height: 70px;
+  align-items: center;
+  padding-top: 30px;
+  padding-left: 30px;
+}
+
+button {
+  font-size: 24px;
+  height: 40px;
+  margin-left: auto;
+  margin-right: 40px;
+}
+
+input {
+  height: 30px;
+  font-size: 22px;
+  margin-left: 10px;
+}
+
+label {
+  margin-left: 20px;
+}
+
+/*# sourceMappingURL=stile.css.map */

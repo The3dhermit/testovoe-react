@@ -1,6 +1,7 @@
 import React from "react";
 import InputForm from "./conponents/InputForm";
 import ContactsList from "./conponents/ContactsList";
+import ConfirmDelete from "./conponents/ConfirmDelete";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -8,15 +9,18 @@ export default class App extends React.Component {
         this.state = {
             contactList: [{
                  name: "John", lastName: "Doe", phone: "+380934565171"
-            },]
+            },],
+            open: false,
+            id: '',
         }
         this.addData = this.addData.bind(this);
         this.deleteContact = this.deleteContact.bind(this);
+        this.confirmOpen = this.confirmOpen.bind(this);
     }
 
-    deleteContact(contactId) {
+    deleteContact() {
         this.setState(prevState => ({
-            contactList: prevState.contactList.filter(x => x.id !== contactId)
+            contactList: prevState.contactList.filter(x => x.id !== this.state.id)
         }))
     }
 
@@ -31,10 +35,17 @@ export default class App extends React.Component {
         this.sortList();
     }
 
+    confirmOpen(state,id){
+        this.setState({open:state});
+        this.setState({id:id})
+        console.log(this.state.open);
+    }
+
     render() {
         return (<div>
             <InputForm addData={this.addData}/>
-            <ContactsList contacts={this.state} deleteContact={this.deleteContact}/>
+            <ContactsList open={this.confirmOpen} contacts={this.state} deleteContact={this.deleteContact}/>
+            <ConfirmDelete confirm={this.state.open} deleteContact={this.deleteContact} open={this.confirmOpen}/>
         </div>);
     }
 }

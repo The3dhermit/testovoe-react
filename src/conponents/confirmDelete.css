@@ -1,0 +1,19 @@
+.confirm {
+    padding-top: 10px;
+    border: black 1px solid;
+    width: 250px;
+    height: 100px;
+    text-align: center;
+    position: fixed;
+    font-size: 20px;
+    z-index: 100;
+    transform: translate3d(650px, 250px, 20px);
+}
+
+.confirm .buttons {
+    display: flex;
+    margin-top: 20px;
+}
+.confirm .buttons button{
+    margin: auto;
+}

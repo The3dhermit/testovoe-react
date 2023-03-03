@@ -50,7 +50,7 @@ export default function App() {
 
     function addToRemoveList(data) {
         console.log("removeList.length")
-        setRemoveList([...removegitList, data]);
+        setRemoveList([...removeList, data]);
         console.log(removeList);
     }
 

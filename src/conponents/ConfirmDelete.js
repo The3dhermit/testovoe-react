@@ -6,12 +6,12 @@ function ConfirmDelete(props) {
 
     const handleYes = () => {
         props.deleteContact();
+
         handleNo();
     }
 
     const handleNo = () => {
-        props.open(false);
-
+        props.open(false,"");
     }
 
     if (props.confirm) {
@@ -22,7 +22,6 @@ function ConfirmDelete(props) {
                     <button onClick={handleYes}>Yes</button>
                     <button onClick={handleNo}>No</button>
                 </div>
-
             </div>
         );
     } else {

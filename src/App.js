@@ -1,7 +1,8 @@
-import React, {useState,useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import InputForm from "./conponents/InputForm";
 import ContactsList from "./conponents/ContactsList";
 import ConfirmDelete from "./conponents/ConfirmDelete";
+import ContactExistHint from "./conponents/ContactExistHint";
 
 export default function App() {
 
@@ -12,12 +13,11 @@ export default function App() {
     const [id, setId] = useState();
     const [removeList, setRemoveList] = useState([]);
     const [remButton, setRemButton] = useState();
-
+    const [contactExists, setcontactExists] = useState();
 
 
     function deleteContact() {
         if (id === "mult") {
-
             deleteMultiple();
         } else {
             setContactList(contactList.filter(x => x.id !== id));
@@ -39,19 +39,43 @@ export default function App() {
     }
 
     function addData(data) {
-        setContactList( [...contactList, data]);
-
+        if (entryCheck(data)) {
+            setcontactExists(true);
+            return;
+        } else {
+            setcontactExists(false);
+        }
+        setContactList([...contactList, data]);
         sortList();
     }
 
+    function entryCheck(data) {
+        const entryCheck = contactList.find(contact => {
+            if (contact.lastName === data.lastName && contact.name === data.name && contact.phone === data.phone) {
+                return true;
+            } else {
+                return false;
+            }
+        })
+        return entryCheck;
+    }
+
+    useEffect( () =>{
+        if (contactExists){
+            const timeout = setTimeout(() => {
+                setcontactExists(false);
+            }, 3000);
+            return () => {
+                clearTimeout(timeout);
+            }
+        }},[contactExists])
+
     useEffect(() => {
-        removeAllBtnAppearance();;
+        removeAllBtnAppearance();
     }, [removeList]);
 
     function addToRemoveList(data) {
-        console.log("removeList.length")
         setRemoveList([...removeList, data]);
-        console.log(removeList);
     }
 
     function removeFromRemoveList(data) {
@@ -62,7 +86,6 @@ export default function App() {
         if (ids === "mult") {
             setOpen(state);
             setId(ids);
-
         } else {
             setOpen(state);
             setId(ids);
@@ -79,7 +102,6 @@ export default function App() {
         }
     }
 
-
     return (<div>
         <InputForm addData={addData}/>
         {remButton}
@@ -87,6 +109,7 @@ export default function App() {
                       addToRemoveList={addToRemoveList} open={confirmOpen} contacts={contactList}
                       deleteContact={deleteContact}/>
         <ConfirmDelete confirm={open} deleteContact={deleteContact} open={confirmOpen}/>
+        <ContactExistHint contactExists={contactExists} setContactExist={setcontactExists}/>
     </div>);
 
 }
